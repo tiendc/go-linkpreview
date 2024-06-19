@@ -9,10 +9,15 @@ func (ctx *ParserContext) parseTwitterMeta() {
 
 	twitterMeta := &TwitterMeta{}
 	for _, tag := range ctx.MetaTags {
-		if !strings.HasPrefix(tag.Property, "twitter:") {
-			continue
+		tagName := tag.Name
+		if !strings.HasPrefix(tagName, "twitter:") {
+			tagName = tag.Property
+			if !strings.HasPrefix(tagName, "twitter:") {
+				continue
+			}
 		}
-		switch tag.Property {
+
+		switch tagName {
 		case "twitter:card":
 			twitterMeta.Card = tag.Content
 		case "twitter:site":

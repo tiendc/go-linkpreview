@@ -32,9 +32,6 @@ func ParseFromReader(link string, data io.Reader, options ...ConfigOption) (Pars
 		Config: ParserConfig{
 			ParseOGMeta:      true,
 			ParseTwitterMeta: true,
-			ParseFavicons:    false,
-			ReturnMetaTags:   false,
-			ReturnLinkTags:   false,
 		},
 		Doc: doc,
 	}
