@@ -21,7 +21,7 @@ func (ctx *ParserContext) parseMaybeFavicon(tag *LinkTag) *Image {
 
 	image := &Image{
 		URL:  parseURL(tag.Href, ctx.Link),
-		Type: tag.Type,
+		Type: strOr(tag.Type, tag.Rel),
 	}
 
 	if tag.Sizes != "" {
