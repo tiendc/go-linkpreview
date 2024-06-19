@@ -17,6 +17,8 @@ func (ctx *ParserContext) parseTwitterMeta() {
 		tagContent := strOr(tag.Content, tag.Value)
 
 		switch tagName {
+		case "url":
+			twitterMeta.URL = tagContent
 		case "card":
 			twitterMeta.Card = tagContent
 		case "site":
@@ -35,6 +37,8 @@ func (ctx *ParserContext) parseTwitterMeta() {
 			twitterMeta.Image = tagContent
 		case "image:alt":
 			twitterMeta.ImageAlt = tagContent
+		default:
+			twitterMeta.Others = append(twitterMeta.Others, tag)
 		}
 	}
 

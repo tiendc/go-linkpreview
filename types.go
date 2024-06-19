@@ -53,18 +53,21 @@ type OGMeta struct {
 	Locale      string     `json:"locale,omitempty"`
 	Images      []*OGImage `json:"images,omitempty"`
 	Videos      []*OGVideo `json:"videos,omitempty"`
+	Others      []*MetaTag `json:"others,omitempty"`
 }
 
 type TwitterMeta struct {
-	Card        string `json:"card,omitempty"`
-	Site        string `json:"site,omitempty"`
-	SiteID      string `json:"site_id,omitempty"`
-	Creator     string `json:"creator,omitempty"`
-	CreatorID   string `json:"creator_id,omitempty"`
-	Title       string `json:"title,omitempty"`
-	Description string `json:"description,omitempty"`
-	Image       string `json:"image,omitempty"`
-	ImageAlt    string `json:"image_alt,omitempty"`
+	URL         string     `json:"url,omitempty"`
+	Card        string     `json:"card,omitempty"`
+	Site        string     `json:"site,omitempty"`
+	SiteID      string     `json:"site_id,omitempty"`
+	Creator     string     `json:"creator,omitempty"`
+	CreatorID   string     `json:"creator_id,omitempty"`
+	Title       string     `json:"title,omitempty"`
+	Description string     `json:"description,omitempty"`
+	Image       string     `json:"image,omitempty"`
+	ImageAlt    string     `json:"image_alt,omitempty"`
+	Others      []*MetaTag `json:"others,omitempty"`
 }
 
 type ParserConfig struct {

@@ -42,6 +42,8 @@ func (ctx *ParserContext) parseOGMeta() {
 			imageTags = append(imageTags, tag)
 		} else if strings.HasPrefix(tagProp, "og:video") {
 			videoTags = append(videoTags, tag)
+		} else {
+			ogMeta.Others = append(ogMeta.Others, tag)
 		}
 	}
 
