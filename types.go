@@ -9,6 +9,7 @@ type MetaTag struct {
 	Property   string            `json:"property,omitempty"`
 	ItemProp   string            `json:"itemprop,omitempty"`
 	Content    string            `json:"content,omitempty"`
+	Value      string            `json:"value,omitempty"`
 	OtherAttrs map[string]string `json:"other_attrs,omitempty"`
 }
 

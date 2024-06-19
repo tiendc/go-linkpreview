@@ -29,3 +29,10 @@ func parseURL(urlStr string, baseURL string) string {
 
 	return resultURL.String()
 }
+
+func strOr(s1, s2 string) string {
+	if s1 != "" {
+		return s1
+	}
+	return s2
+}

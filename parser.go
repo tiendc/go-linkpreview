@@ -39,10 +39,12 @@ func (ctx *ParserContext) readAllTags() error {
 				metaTag.Name = attr.Val
 			case "property":
 				metaTag.Property = attr.Val
-			case "itemprop":
-				metaTag.ItemProp = attr.Val
 			case "content":
 				metaTag.Content = attr.Val
+			case "value":
+				metaTag.Value = attr.Val
+			case "itemprop":
+				metaTag.ItemProp = attr.Val
 			default:
 				if metaTag.OtherAttrs == nil {
 					metaTag.OtherAttrs = map[string]string{}

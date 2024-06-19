@@ -9,33 +9,32 @@ func (ctx *ParserContext) parseTwitterMeta() {
 
 	twitterMeta := &TwitterMeta{}
 	for _, tag := range ctx.MetaTags {
-		tagName := tag.Name
+		tagName := strOr(tag.Name, tag.Property)
 		if !strings.HasPrefix(tagName, "twitter:") {
-			tagName = tag.Property
-			if !strings.HasPrefix(tagName, "twitter:") {
-				continue
-			}
+			continue
 		}
+		tagName = tagName[len("twitter:"):]
+		tagContent := strOr(tag.Content, tag.Value)
 
 		switch tagName {
-		case "twitter:card":
-			twitterMeta.Card = tag.Content
-		case "twitter:site":
-			twitterMeta.Site = tag.Content
-		case "twitter:site:id":
-			twitterMeta.SiteID = tag.Content
-		case "twitter:creator":
-			twitterMeta.Creator = tag.Content
-		case "twitter:creator:id":
-			twitterMeta.CreatorID = tag.Content
-		case "twitter:title":
-			twitterMeta.Title = tag.Content
-		case "twitter:description":
-			twitterMeta.Description = tag.Content
-		case "twitter:image":
-			twitterMeta.Image = tag.Content
-		case "twitter:image:alt":
-			twitterMeta.ImageAlt = tag.Content
+		case "card":
+			twitterMeta.Card = tagContent
+		case "site":
+			twitterMeta.Site = tagContent
+		case "site:id":
+			twitterMeta.SiteID = tagContent
+		case "creator":
+			twitterMeta.Creator = tagContent
+		case "creator:id":
+			twitterMeta.CreatorID = tagContent
+		case "title":
+			twitterMeta.Title = tagContent
+		case "description":
+			twitterMeta.Description = tagContent
+		case "image":
+			twitterMeta.Image = tagContent
+		case "image:alt":
+			twitterMeta.ImageAlt = tagContent
 		}
 	}
 

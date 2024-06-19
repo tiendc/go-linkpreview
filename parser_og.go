@@ -12,32 +12,35 @@ func (ctx *ParserContext) parseOGMeta() {
 	var videoTags []*MetaTag
 
 	for _, tag := range ctx.MetaTags {
-		if !strings.HasPrefix(tag.Property, "og:") {
+		tagProp := tag.Property
+		if !strings.HasPrefix(tagProp, "og:") {
 			continue
 		}
+		tagContent := tag.Content
 		parsed := true
-		switch tag.Property {
+
+		switch tagProp {
 		case "og:url":
-			ogMeta.URL = tag.Content
+			ogMeta.URL = tagContent
 		case "og:title":
-			ogMeta.Title = tag.Content
+			ogMeta.Title = tagContent
 		case "og:type":
-			ogMeta.Type = tag.Content
+			ogMeta.Type = tagContent
 		case "og:description":
-			ogMeta.Description = tag.Content
+			ogMeta.Description = tagContent
 		case "og:site_name":
-			ogMeta.SiteName = tag.Content
+			ogMeta.SiteName = tagContent
 		case "og:locale":
-			ogMeta.Locale = tag.Content
+			ogMeta.Locale = tagContent
 		default:
 			parsed = false
 		}
 		if parsed {
 			continue
 		}
-		if strings.HasPrefix(tag.Property, "og:image") {
+		if strings.HasPrefix(tagProp, "og:image") {
 			imageTags = append(imageTags, tag)
-		} else if strings.HasPrefix(tag.Property, "og:video") {
+		} else if strings.HasPrefix(tagProp, "og:video") {
 			videoTags = append(videoTags, tag)
 		}
 	}
