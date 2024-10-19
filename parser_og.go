@@ -17,6 +17,9 @@ func (ctx *ParserContext) parseOGMeta() {
 			continue
 		}
 		tagContent := tag.Content
+		if tagContent == "" {
+			continue
+		}
 		parsed := true
 
 		switch tagProp {
@@ -60,6 +63,9 @@ func (ctx *ParserContext) parseOGMeta() {
 func (ctx *ParserContext) parseOGImages(ogMeta *OGMeta, tags []*MetaTag) {
 	var currImage *OGImage
 	for _, tag := range tags {
+		if tag.Content == "" {
+			continue
+		}
 		switch tag.Property {
 		case "og:image":
 			if currImage != nil {
@@ -96,6 +102,9 @@ func (ctx *ParserContext) parseOGImages(ogMeta *OGMeta, tags []*MetaTag) {
 func (ctx *ParserContext) parseOGVideos(ogMeta *OGMeta, tags []*MetaTag) {
 	var currVideo *OGVideo
 	for _, tag := range tags {
+		if tag.Content == "" {
+			continue
+		}
 		switch tag.Property {
 		case "og:video":
 			if currVideo != nil {
