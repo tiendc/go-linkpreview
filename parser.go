@@ -1,5 +1,9 @@
 package linkpreview
 
+import (
+	"errors"
+)
+
 func (ctx *ParserContext) Parse() error {
 	err := ctx.readAllTags()
 	if err != nil {
@@ -52,6 +56,9 @@ func (ctx *ParserContext) readAllTags() error {
 				metaTag.OtherAttrs[attr.Key] = attr.Val
 			}
 		}
+		if err := validateMetaTag(metaTag); err != nil {
+			return err
+		}
 		ctx.MetaTags = append(ctx.MetaTags, metaTag)
 	}
 
@@ -76,6 +83,9 @@ func (ctx *ParserContext) readAllTags() error {
 				linkTag.OtherAttrs[attr.Key] = attr.Val
 			}
 		}
+		if err := validateLinkTag(linkTag); err != nil {
+			return err
+		}
 		ctx.LinkTags = append(ctx.LinkTags, linkTag)
 	}
 
@@ -94,4 +104,24 @@ func (ctx *ParserContext) parseBasicTags() {
 			break
 		}
 	}
+}
+
+func validateMetaTag(tag *MetaTag) error {
+	if tag.Name == "" && tag.Property == "" {
+		return errors.New("meta tag must have either a name or property attribute")
+	}
+	if tag.Content == "" && tag.Value == "" {
+		return errors.New("meta tag must have either a content or value attribute")
+	}
+	return nil
+}
+
+func validateLinkTag(tag *LinkTag) error {
+	if tag.Rel == "" {
+		return errors.New("link tag must have a rel attribute")
+	}
+	if tag.Href == "" {
+		return errors.New("link tag must have an href attribute")
+	}
+	return nil
 }
