@@ -19,18 +19,22 @@ func (ctx *ParserContext) parseMaybeFavicon(tag *LinkTag) *Image {
 		return nil
 	}
 
+	if err := validateURL(tag.Href); err != nil {
+		return nil
+	}
+
 	image := &Image{
 		URL:  parseURL(tag.Href, ctx.Link),
 		Type: strOr(tag.Type, tag.Rel),
 	}
 
 	if tag.Sizes != "" {
-		wh := strings.Split(tag.Sizes, "x")
-		if len(wh) == 2 {
-			image.Width = parseInt(wh[0])
-			image.Height = parseInt(wh[1])
+			wh := strings.Split(tag.Sizes, "x")
+			if len(wh) == 2 {
+				image.Width = parseInt(wh[0])
+				image.Height = parseInt(wh[1])
+			}
 		}
-	}
 
 	return image
 }

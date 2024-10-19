@@ -16,6 +16,10 @@ func (ctx *ParserContext) parseTwitterMeta() {
 		tagName = tagName[len("twitter:"):]
 		tagContent := strOr(tag.Content, tag.Value)
 
+		if tagContent == "" {
+			continue
+		}
+
 		switch tagName {
 		case "url":
 			twitterMeta.URL = tagContent
