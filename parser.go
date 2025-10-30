@@ -29,9 +29,11 @@ func (ctx *ParserContext) Parse() error {
 }
 
 func (ctx *ParserContext) readAllTags() error {
-	// Read all <meta> tags
-	metaNodes := ctx.Doc.Find("html > head > meta")
-	for _, node := range metaNodes.Nodes {
+	// Read all <meta> tags (meta tags may appear in both <head> and <body>)
+	metaNodesInHead := ctx.Doc.Find("html > head > meta")
+	metaNodesInBody := ctx.Doc.Find("html > body > meta")
+	allMetaNodes := append(metaNodesInHead.Nodes, metaNodesInBody.Nodes...)
+	for _, node := range allMetaNodes {
 		metaTag := &MetaTag{}
 		for _, attr := range node.Attr {
 			switch attr.Key {
